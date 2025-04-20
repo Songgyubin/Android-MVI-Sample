@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -5,6 +7,13 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.serialization)
     kotlin("kapt")
+}
+
+val localProperties = Properties().apply {
+    val localFile = rootProject.file("local.properties")
+    if (localFile.exists()) {
+        load(localFile.inputStream())
+    }
 }
 
 android {
@@ -19,6 +28,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        val githubToken = localProperties["GITHUB_TOKEN"] ?: ""
+        buildConfigField("String", "GITHUB_TOKEN", "\"$githubToken\"")
     }
 
     buildTypes {
@@ -36,6 +47,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -50,12 +62,23 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
+    implementation(libs.kotlinx.serialization.json)
+
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)
-    implementation(libs.kotlinx.serialization.json)
     implementation(libs.okhttp.logging)
+
     implementation(libs.hilt.android)
+    implementation(libs.hilt.navigation.compose)
     kapt(libs.hilt.compiler)
+
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.common)
+    implementation(libs.androidx.paging.compose)
+
+    implementation(libs.coil.compose)
+
+    implementation(libs.androidx.compose.navigation)
 
     testImplementation(libs.junit)
 

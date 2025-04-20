@@ -19,6 +19,7 @@ kotlinxImmutable = "0.3.8"
 ## Network
 # okhttp
 # # https://square.github.io/okhttp/
+materialPullRefresh = "1.2.0"
 okhttp = "4.12.0"
 # Retrofit
 # # https://github.com/square/retrofit
@@ -35,7 +36,10 @@ hilt = "2.52"
 hiltNavigationCompose = "1.2.0"
 
 # https://developer.android.com/jetpack/androidx/releases/paging
-androidxPaging = "3.3.2"
+androidxPaging = "3.3.0"
+
+# https://developer.android.com/jetpack/androidx/releases/navigation
+androidxComposeNavigation = "2.8.9"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -52,16 +56,25 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxComposeNavigation" }
 
 hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref  = "hilt" }
+hilt-core = { group = "com.google.dagger", name = "hilt-core", version.ref = "hilt" }
+hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 
-kotlinx-immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinxImmutable" }
+androidx-paging-runtime = { group = "androidx.paging", name = "paging-runtime-ktx", version.ref = "androidxPaging" }
+androidx-paging-common = { group = "androidx.paging", name = "paging-common-ktx", version.ref = "androidxPaging" }
+androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "androidxPaging" }
+
 okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-kotlin-serialization = { module = "com.squareup.retrofit2:converter-kotlinx-serialization", version.ref = "retrofit" }
+
+kotlinx-immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinxImmutable" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 
 [plugins]
