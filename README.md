@@ -27,12 +27,6 @@ flowchart LR
     E --> B[Event]
     D --> F[UI observes State]
 ```
-1. 사용자가 화면에서 어떤 동작(클릭, 입력 등)을 함
-2. `Event`를 `ViewModel`로 전달
-3. `ViewModel` 내 `Reducer`에서 `Event`를 받아 현재 상태와 비교해 새로운 상태를 계산
-  - `SideEffect` 발행
-5. 새로운 `State` 발행
-6. `View`는 `State`만 관찰 (절대로 `View`에서 상태를 수정하지 않음)
 
 ### 📦 Reducer
 ```kotlin
@@ -41,12 +35,29 @@ abstract class Reducer<State : Reducer.State, Event : Reducer.Event, SideEffect 
     interface Event
     interface SideEffect
 
-    abstract fun reduce(currentState: State, event: Event, sendSideEffect: (SideEffect) -> Unit): State
+    abstract fun reduce(currentState: State, event: Event): ReducerResult<State, SideEffect>
+
+    data class ReducerResult<State : Reducer.State, SideEffect : Reducer.SideEffect>(val newState: State, val sideEffects: List<SideEffect>)
+    
+    fun <State : Reducer.State> reducerResult(
+        newState: State,
+    ): ReducerResult<State, SideEffect> = ReducerResult(newState, emptyList())
+
+    fun <State : Reducer.State, SideEffect : Reducer.SideEffect> reducerResult(
+        newState: State,
+        sideEffects: SideEffect
+    ): ReducerResult<State, SideEffect> = ReducerResult(newState, listOf(sideEffects))
+
+    fun <State : Reducer.State, SideEffect : Reducer.SideEffect> reducerResult(
+        newState: State,
+        sideEffects: List<SideEffect>
+    ): ReducerResult<State, SideEffect> = ReducerResult(newState, sideEffects)
 }
 ```
 | 구성요소   | 설명 |
 |------------|------|
 | **Reducer** | `Event`를 처리하여 새로운 `State`를 생성 |
+| **ReducerResult** | `Reducer`의 결과로, 새로운 상태(State)와 하나 이상의 사이드이펙트(SideEffect)를 함께 담고 있는 데이터 구조 |
 | **Event** | 사용자의 액션 또는 시스템 트리거. `Reducer.Event`로 정의 |
 | **SideEffect** | 네트워크 요청, Toast 등 일회성 처리 항목 |
 | **State** | 현재 UI 상태를 나타내며, `Reducer.State`로 정의된 불변 객체 |
@@ -78,12 +89,29 @@ abstract class Reducer<State : Reducer.State, Event : Reducer.Event, SideEffect 
     interface Event
     interface SideEffect
 
-    abstract fun reduce(currentState: State, event: Event, sendSideEffect: (SideEffect) -> Unit): State
+    abstract fun reduce(currentState: State, event: Event): ReducerResult<State, SideEffect>
+
+    data class ReducerResult<State : Reducer.State, SideEffect : Reducer.SideEffect>(val newState: State, val sideEffects: List<SideEffect>)
+
+    fun <State : Reducer.State> reducerResult(
+        newState: State,
+    ): ReducerResult<State, SideEffect> = ReducerResult(newState, emptyList())
+
+    fun <State : Reducer.State, SideEffect : Reducer.SideEffect> reducerResult(
+        newState: State,
+        sideEffects: SideEffect
+    ): ReducerResult<State, SideEffect> = ReducerResult(newState, listOf(sideEffects))
+
+    fun <State : Reducer.State, SideEffect : Reducer.SideEffect> reducerResult(
+        newState: State,
+        sideEffects: List<SideEffect>
+    ): ReducerResult<State, SideEffect> = ReducerResult(newState, sideEffects)
 }
 ```
 | Component     | Description |
 |---------------|-------------|
 | **Reducer**   | Handles `Event` to produce a new immutable `State` |
+| **ReducerResult** | Result from `Reducer`, containing both the new State and a list of `SideEffects` to be handled |
 | **Event**     | User actions or triggers, defined in `Reducer.Event` |
 | **SideEffect**| One-time operations like API calls or Toasts |
 | **State**     | UI representation of data, defined in `Reducer.State` |
