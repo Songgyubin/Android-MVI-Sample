@@ -26,7 +26,7 @@ abstract class Reducer<State : Reducer.State, Event : Reducer.Event, SideEffect 
      * @param newState 이벤트 처리 후의 새로운 상태
      * @return ReducerResult - 사이드이펙트 없이 상태만 포함
      */
-    fun <State : Reducer.State> reducerResult(
+    protected fun <State : Reducer.State> reducerResult(
         newState: State,
     ): ReducerResult<State, SideEffect> = ReducerResult(newState, emptyList())
 
@@ -37,7 +37,7 @@ abstract class Reducer<State : Reducer.State, Event : Reducer.Event, SideEffect 
      * @param sideEffects 수행할 하나의 사이드이펙트
      * @return ReducerResult - 상태와 하나의 사이드이펙트를 포함
      */
-    fun <State : Reducer.State, SideEffect : Reducer.SideEffect> reducerResult(
+    protected fun <State : Reducer.State, SideEffect : Reducer.SideEffect> reducerResult(
         newState: State,
         sideEffects: SideEffect
     ): ReducerResult<State, SideEffect> = ReducerResult(newState, listOf(sideEffects))
@@ -49,7 +49,7 @@ abstract class Reducer<State : Reducer.State, Event : Reducer.Event, SideEffect 
      * @param sideEffects 수행할 사이드이펙트 리스트
      * @return ReducerResult - 상태와 여러 사이드이펙트를 포함
      */
-    fun <State : Reducer.State, SideEffect : Reducer.SideEffect> reducerResult(
+    protected fun <State : Reducer.State, SideEffect : Reducer.SideEffect> reducerResult(
         newState: State,
         sideEffects: List<SideEffect>
     ): ReducerResult<State, SideEffect> = ReducerResult(newState, sideEffects)
