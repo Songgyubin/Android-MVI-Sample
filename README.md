@@ -39,16 +39,16 @@ abstract class Reducer<State : Reducer.State, Event : Reducer.Event, SideEffect 
 
     data class ReducerResult<State : Reducer.State, SideEffect : Reducer.SideEffect>(val newState: State, val sideEffects: List<SideEffect>)
     
-    fun <State : Reducer.State> reducerResult(
+    protected fun <State : Reducer.State> reducerResult(
         newState: State,
     ): ReducerResult<State, SideEffect> = ReducerResult(newState, emptyList())
 
-    fun <State : Reducer.State, SideEffect : Reducer.SideEffect> reducerResult(
+    protected fun <State : Reducer.State, SideEffect : Reducer.SideEffect> reducerResult(
         newState: State,
         sideEffects: SideEffect
     ): ReducerResult<State, SideEffect> = ReducerResult(newState, listOf(sideEffects))
 
-    fun <State : Reducer.State, SideEffect : Reducer.SideEffect> reducerResult(
+    protected fun <State : Reducer.State, SideEffect : Reducer.SideEffect> reducerResult(
         newState: State,
         sideEffects: List<SideEffect>
     ): ReducerResult<State, SideEffect> = ReducerResult(newState, sideEffects)
@@ -93,16 +93,16 @@ abstract class Reducer<State : Reducer.State, Event : Reducer.Event, SideEffect 
 
     data class ReducerResult<State : Reducer.State, SideEffect : Reducer.SideEffect>(val newState: State, val sideEffects: List<SideEffect>)
 
-    fun <State : Reducer.State> reducerResult(
+    protected fun <State : Reducer.State> reducerResult(
         newState: State,
     ): ReducerResult<State, SideEffect> = ReducerResult(newState, emptyList())
 
-    fun <State : Reducer.State, SideEffect : Reducer.SideEffect> reducerResult(
+    protected fun <State : Reducer.State, SideEffect : Reducer.SideEffect> reducerResult(
         newState: State,
         sideEffects: SideEffect
     ): ReducerResult<State, SideEffect> = ReducerResult(newState, listOf(sideEffects))
 
-    fun <State : Reducer.State, SideEffect : Reducer.SideEffect> reducerResult(
+    protected fun <State : Reducer.State, SideEffect : Reducer.SideEffect> reducerResult(
         newState: State,
         sideEffects: List<SideEffect>
     ): ReducerResult<State, SideEffect> = ReducerResult(newState, sideEffects)
